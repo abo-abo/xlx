@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.16">
+  <actions/>
+  <description/>
+  <properties>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.2.2">
+      <dockerLabel/>
+      <registry plugin="docker-commons@1.9"/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
+  </properties>
+  <folderViews plugin="branch-api@2.0.14" class="jenkins.branch.MultiBranchProjectViewHolder">
+    <owner reference="../.." class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject"/>
+  </folderViews>
+  <healthMetrics>
+    <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.2.1">
+      <nonRecursive>
+        false
+      </nonRecursive>
+    </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
+  </healthMetrics>
+  <icon plugin="branch-api@2.0.14" class="jenkins.branch.MetadataActionFolderIcon">
+    <owner reference="../.." class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject"/>
+  </icon>
+  <orphanedItemStrategy plugin="cloudbees-folder@6.2.1" class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy">
+    <pruneDeadBranches>
+      true
+    </pruneDeadBranches>
+    <daysToKeep>
+      -1
+    </daysToKeep>
+    <numToKeep>
+      -1
+    </numToKeep>
+  </orphanedItemStrategy>
+  <triggers>
+    <com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger plugin="cloudbees-folder@6.2.1">
+      <spec>
+        H/6 * * * *
+      </spec>
+      <interval>
+        600000
+      </interval>
+    </com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger>
+  </triggers>
+  <disabled>
+    false
+  </disabled>
+  <sources plugin="branch-api@2.0.14" class="jenkins.branch.MultiBranchProject$BranchSourceList">
+    <data>
+      <jenkins.branch.BranchSource>
+        <source plugin="git@3.6.1" class="jenkins.plugins.git.GitSCMSource">
+          <id>
+            4b2d03a1-940c-4b21-b934-bc1d443b7aaf
+          </id>
+          <remote>
+            /home/oleh/Dropbox/source/site-lisp/git/jenkins
+          </remote>
+          <credentialsId/>
+          <traits>
+            <jenkins.plugins.git.traits.BranchDiscoveryTrait/>
+          </traits>
+        </source>
+        <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
+          <properties class="empty-list"/>
+        </strategy>
+      </jenkins.branch.BranchSource>
+    </data>
+    <owner reference="../.." class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject"/>
+  </sources>
+  <factory class="org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory">
+    <owner reference="../.." class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject"/>
+    <scriptPath>
+      Jenkinsfile
+    </scriptPath>
+  </factory>
+</org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject>
