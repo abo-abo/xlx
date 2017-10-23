@@ -1,2 +1,5 @@
 def run(recipe):
-    return ["./myscript.lisp"]
+    return [
+        "rm -f ~/demo_pipeline.lisp",
+        "./myscript.lisp",
+        "cat ~/demo_pipeline.lisp"]
