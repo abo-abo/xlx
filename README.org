@@ -1,0 +1,22 @@
+* Description
+This is a demo of a XML->LISP->XML converter.
+
+Generate a LISP file from a XML file:
+#+begin_src sh
+./xlx.lisp res/config.xml out.lisp
+#+end_src
+
+Generate a XML file from a LISP file:
+#+begin_src sh
+./xlx.lisp out.lisp out.xml
+#+end_src
+
+Check for diffs:
+#+begin_src sh
+diff -s res/config.xml out.xml
+#+end_src
+
+* Possible Emacs integration
+When visiting an XML file, ~M-x~ =xlx-mode= will:
+- generate a new buffer in =lisp-mode= with the transformed contents
+- overwrite the original file each time ~C-x C-s~ is done in the LISP buffer.
