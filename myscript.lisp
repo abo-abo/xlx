@@ -4,6 +4,29 @@
 (load "~/quicklisp/setup.lisp")
 (ql:quickload "xmls")
 
+;;* Patch xmls by adding `nreverse' to attrs
+;; Currently xmls-1.7 is offered by quicklisp
+(in-package :xmls)
+(defrule start-tag ()
+  (let (name suffix attrs nsdecls)
+    (and
+     (peek namechar)
+     (setf (values name suffix) (qname s))
+     (multiple-value-bind (res a)
+         (none-or-more s #'ws-attr-or-nsdecl)
+       (mapcar (lambda (x) (if (eq (car x) 'attr)
+                               (push (cdr x) attrs)
+                             (push (cdr x) nsdecls)))
+               a)
+       res)
+     (or (ws s) t)
+     (values
+      (make-node
+       :name (or suffix name)
+       :ns (and suffix name)
+       :attrs (nreverse attrs))
+      nsdecls))))
+
 ;;* Package
 (defpackage myscript
   (:use :common-lisp :xmls))
