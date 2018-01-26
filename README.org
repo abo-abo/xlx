@@ -16,6 +16,22 @@ Check for diffs:
 diff -s res/config.xml out.xml
 #+end_src
 
+* Using Cookbook.py
+Install pycook:
+#+begin_src sh
+pip install pycook
+#+end_src
+
+Install Quicklisp:
+#+begin_src sh
+cook install_quicklisp
+#+end_src
+
+Run the test case:
+#+begin_src sh
+cook run
+#+end_src
+
 * Possible Emacs integration
 When visiting an XML file, ~M-x~ =xlx-mode= will:
 - generate a new buffer in =lisp-mode= with the transformed contents
