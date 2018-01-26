@@ -2,8 +2,8 @@
 
 ;;* Quicklisp
 (load "~/quicklisp/setup.lisp")
-(ql:quickload "xmls")
-(ql:quickload "cl-ppcre")
+(ql:quickload "xmls" :silent t)
+(ql:quickload "cl-ppcre" :silent t)
 
 ;;* Patch xmls by adding `nreverse' to attrs
 ;; Currently xmls-1.7 is offered by quicklisp
@@ -57,10 +57,18 @@
                       ("encoding" . "UTF-8")) nil str)
     (write-xml x str :indent t)))
 
+(defun print-usage ()
+  (format t "Usage: ./xlx.lisp IN OUT~%"))
+
 ;;* Script
-(let* ((argv sb-ext:*posix-argv*)
-       (in (nth 1 argv))
-       (out (nth 2 argv)))
-  (if (cl-ppcre:scan "\\.xml$" in)
-      (spit (parse (slurp in)) out)
-    (spit-as-xml (read-from-string (slurp in)) out)))
+(let ((argv sb-ext:*posix-argv*))
+  (if (= (length argv) 3)
+      (let ((in (nth 1 argv))
+            (out (nth 2 argv)))
+        (cond ((cl-ppcre:scan "\\.xml$" in)
+               (spit (parse (slurp in)) out))
+              ((cl-ppcre:scan "\\.lisp$" in)
+               (spit-as-xml (read-from-string (slurp in)) out))
+              (t
+               (print-usage))))
+    (print-usage)))
